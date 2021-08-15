@@ -1,0 +1,59 @@
+<%= stylesheet_link_tag 'users', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+<div id="wrapper">
+  <div class="container">
+    <div class="form-data">
+      <%= form_with(model: @user, local:true) do |form| %>
+        <% if user.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+            <ul>
+              <% user.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="logo">
+          <%= image_tag("logo.png", :alt => "logo") %>
+        </div>
+
+        <p style=";font-size:15px;margin-bottom:10px;">Sign up to see photos and videos <br> from your friends</p>
+
+        <a class="facebook-login" href="#">
+          <i class="fab fa-facebook-square"></i> Log in with Facebook
+        </a>
+
+        <span class="has-separator">Or</span>
+
+        <%=form.text_field :pseudo, placeholder:"Pseudo", style: "margin-bottom:10px;"%>
+
+        <%=form.email_field :email, placeholder:"Enter Email", style: "margin-bottom:10px;"%>
+
+        <%=form.password_field :password, placeholder:"password", style: "margin-bottom:10px;"%>
+
+        <%= form.password_field :password_confirmation, placeholder:"Password confirm", style: "margin-bottom:10px;"%>
+
+        <%= form.file_field :image%>
+
+        <%= form.hidden_field :image_cache %>
+
+        <%=form.submit "Sign up", disable_with: 'Submiting...', class:"form-btn"%>
+
+        <p style=";font-size:12px;margin-top:5px;">By signing up, you agree to our Terms <br> Data Policy and Cookies Policy</p>
+      <% end %>
+
+      <div class="sign-up">
+        Have an account? <%= link_to "Log in", new_session_path%>
+      </div>
+      <div class="get-the-app">
+        <span>Get the app.</span>
+        <div class="badges">
+          <%= image_tag("app-store.png", :alt => "app-store badge") %>
+          <%= image_tag("google-play.png", :alt => "google-play badge") %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

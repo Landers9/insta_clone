@@ -1,0 +1,201 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+            crossorigin="anonymous">
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+     rel="stylesheet">
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+<%= stylesheet_link_tag 'posts', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color:#fff;">
+    <div class="container justify-content-center layout">
+        <div class="d-flex flex-row justify-content-between align-items-center col-10">
+            <a class="navbar-brand" href="#">
+                <%= image_tag("ig-logo.png", :alt => "logo") %>
+            </a>
+            <div class="form-data">
+                <form class="" action="#">
+                  <input type="text" name="" value="" placeholder="search">
+                </form>
+            </div>
+            <div class="d-flex flex-row">
+                <ul class="list-inline m-0">
+                    <li class="list-inline-item">
+                      <%= link_to posts_path do %>
+                        <span class="material-icons" style="color:#000;">home</span>
+                      <% end %>
+                    </li>
+                    <li class="list-inline-item ml-2">
+                        <%= link_to favorites_path do %>
+                          <span class="material-icons" style="color:#000;">favorite</span>
+                        <% end %>
+                    </li>
+                    <li class="list-inline-item ml-2">
+                        <%= link_to new_post_path do %>
+                          <span class="material-icons" style="color:#000;">add_circle</span>
+                        <% end %>
+                    </li>
+                    <li class="list-inline-item ml-2">
+                        <%= link_to user_path(current_user.id) do%>
+                          <%= image_tag current_user.image.url, class:"img-fluid rounded-circle", width:"25px", height:"auto", style:"margin-top:-20px;"%>
+                        <% end %>
+                    </li>
+                    <li class="list-inline-item ml-2">
+                        <%= link_to session_path(current_user.id), method: :delete do%>
+                          <span class="material-icons" style="color:#000;">logout</span>
+                        <%end%>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div style="margin-top:100px;">
+  <div class="container d-flex justify-content-center">
+      <div class="col-10">
+          <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body d-flex justify-content-start">
+                        <ul class="list-unstyled mb-0">
+                            <li class="list-inline-item">
+                              <%= image_tag("profile-1.jpg", :alt => "logo", class:"img-fluid rounded-circle mb-2 ml-3 story", width:"50px", height:"auto", style:"") %> <br>
+                              <small>maitregimofficel</small>
+                            </li>
+                            <li class="list-inline-item">
+                              <%= image_tag("profile-2.jpg", :alt => "logo", class:"img-fluid rounded-circle mb-2 ml-3 story", width:"50px", height:"auto", style:"") %> <br>
+                              <small>christ-brown92</small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                  <p class="mt-4 mb-3" style="color:#0000ee; text-align:center;">My favorites</p>
+                <!--  -->
+                <% @favorites.each do |post| %>
+                  <div class="card gedf-card mb-5 mt-5">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                           <div class="d-flex justify-content-between align-items-center">
+                                <div class="mr-2">
+                                  <%if post.post.image.url%>
+                                    <%= image_tag post.post.user.image.url, class: "rounded-circle", width: "45px"%>
+                                  <% end %>
+                                </div>
+                                <div class="ml-2">
+                                    <div class="h7 text-muted">
+                                      <%= post.user.pseudo + " a publié" %>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                              <div class="dropdown">
+                                  <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      <i class="fa fa-ellipsis-h"></i>
+                                  </button>
+                                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
+                                      <div class="h6 dropdown-header">Configuration</div>
+                                      <% unless post.user_id == current_user.id %>
+                                        <% if @favorite.present? %>
+                                        <%= link_to 'Supprimer le favori', favorite_path(post_id: @post.id), method: :delete, class:"dropdown-item"%>
+                                        <% else %>
+                                          <%= link_to 'Ajouter au favoris',
+                                          favorites_path(post_id: @post.id), method: :post, class:"dropdown-item"%>
+                                        <% end %>
+                                      <% end %>
+                                    <%= link_to 'Back', posts_path, class:"dropdown-item" %>
+                                  </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>10 min ago</div>
+
+                        <div class="mb-3">
+                          <img src="<%= post.post.image.url %>" class="img-fluid" alt="">
+                        </div>
+                        <p class="card-text">
+                          <%= post.post.content %>
+                        </p>
+
+                        <div class="pr-3 pb-2">
+                          <strong class="d-block">365.354 likes</strong>
+                          <strong class="d-block">samkolder</strong>
+                          <p class="d-block mb-1">Lil drone shot I got a while back but never posted.</p>
+                          <span class="text-muted">View all 2,247 comments</span>
+
+                          <div>
+                              <div>
+                                <strong class="d-block">a.7.m3ff</strong>
+                                <span>❤️💓💓💓💓💓</span>
+                              </div>
+                              <div>
+                                <strong class="d-block">adri_rez77</strong>
+                                <span>Hi</span>
+                              </div>
+                          </div>
+
+                          <small class="text-muted"><%= post.created_at %></small>
+                        </div>
+                    </div>
+                  <div class="card-footer">
+                      <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
+                      <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a>
+                      <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
+                  </div>
+              </div>
+             <% end %>
+            </div>
+            <div class="col-md-4">
+              <div class="d-flex flex-row align-items-center">
+                  <%= image_tag current_user.image.url, :alt => "logo", class:"img-fluid rounded-circle mb-2 ml-3", width:"50px", height:"auto"%>
+                  <div class="profile-info ml-3">
+                      <span class="profile-infousername">
+                        <%=current_user.pseudo%>
+                      </span>
+                  </div>
+              </div>
+
+              <div class="mt-4">
+                  <div class="d-flex flex-row justify-content-between">
+                      <small class="text-muted font-weight-normal">Suggestions For You</small>
+                      <small><a href="#" style="text-decoration:none;">See All</a></small>
+                  </div>
+                  <div>
+                      <div class="d-flex flex-row justify-content-between align-items-center mt-3 mb-3">
+                          <div class="d-flex flex-row align-items-center">
+                              <%= image_tag("profile-3.jpg", :alt => "logo", class:"img-fluid rounded-circle mb-2 ml-3 story", width:"50px", height:"auto", style:"") %>
+                              <strong class="ml-3 sugest-username">instagram</strong>
+                          </div>
+                        <button class="btn btn-primary p-1">Follow</button>
+                      </div>
+                      <div class="d-flex flex-row justify-content-between align-items-center mt-3 mb-3">
+                          <div class="d-flex flex-row align-items-center">
+                              <%= image_tag("profile-2.jpg", :alt => "logo", class:"img-fluid rounded-circle mb-2 ml-3", width:"50px", height:"auto", style:"") %>
+                              <strong class="ml-3 sugest-username">comics</strong>
+                          </div>
+                          <button class="btn btn-primary p-1">Follow</button>
+                      </div>
+                      <div class="d-flex flex-row justify-content-between align-items-center mt-3 mb-3">
+                          <div class="d-flex flex-row align-items-center">
+                              <%= image_tag("profile-5.jpg", :alt => "logo", class:"img-fluid rounded-circle mb-2 ml-3", width:"50px", height:"auto", style:"") %>
+                              <strong class="ml-3 sugest-username">thecw</strong>
+                          </div>
+                          <button class="btn btn-primary p-1">Follow</button>
+                      </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

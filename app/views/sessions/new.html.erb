@@ -1,0 +1,38 @@
+<%= stylesheet_link_tag 'sessions', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+<div id="wrapper">
+  <div class="container">
+    <div class="form-data">
+      <%= form_with(scope: :session, url: sessions_path, local: true) do |f| %>
+        <div class="logo">
+          <%= image_tag("logo.png", :alt => "logo") %>
+        </div>
+
+        <%=f.email_field :email, placeholder:"Your Email", style: "margin-bottom:10px;"%>
+
+        <%= f.password_field :password, placeholder:"Password", style: "margin-bottom:10px;"%>
+
+        <%=f.submit "Login", disable_with: 'Submiting...', class:"form-btn"%>
+
+
+        <span class="has-separator">Or</span>
+        <a class="facebook-login" href="#">
+          <i class="fab fa-facebook-square"></i> Log in with Facebook
+        </a>
+        <a class="password-reset" href="#">Forgot password?</a>
+
+      <% end %>
+
+      <div class="sign-up">
+        Don't have an account? <%= link_to "Sign up", new_user_path %>
+      </div>
+      <div class="get-the-app">
+        <span>Get the app.</span>
+        <div class="badges">
+          <%= image_tag("app-store.png", :alt => "app-store badge") %>
+          <%= image_tag("google-play.png", :alt => "google-play badge") %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

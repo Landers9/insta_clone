@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Instaclone</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <link rel="icon" type="image/png" href="/assets/icon.jpg">
+
+  </head>
+
+  <body>
+    <% if flash[:notice] %>
+      <div class="bg-success card col-8 mt-2 ml-5">
+        <p class="notice text-white"><%= notice %></p>
+      </div>
+    <% end %>
+    <% if flash[:alert] %>
+      <div class="bg-danger card col-8 mt-2 ml-5">
+        <p class="alert text-white"><%= alert %></p>
+      </div>
+    <% end %>
+
+    <%= yield %>
+    <footer class="pt-4 mt-5 bg-white">
+      <div class="container-fluid text-center text-md-left">
+        <div class="footer-copyright text-center py-3">© 2020 Copyright
+          <a href="#"> Nos conditions & politique de confidentialité</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

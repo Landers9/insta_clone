@@ -1,0 +1,27 @@
+.link-menu {
+    color: black;
+}
+
+.form-data form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.form-data form input {
+  padding: 2px 8px;
+  border: 1.5px solid #ddd;
+  border-radius: .2rem;
+}
+
+.form-data form input:focus{
+  outline: 0;
+}
+
+nav{
+  box-shadow: 2px 2px 2px #eee;
+}
+
+.story{
+  border: 1px solid red;
+}

@@ -1,0 +1,41 @@
+<%= stylesheet_link_tag 'users', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+<div id="wrapper">
+  <div class="container">
+    <div class="form-data">
+      <%= form_with(model: @user, local:true) do |form| %>
+
+        <div class="logo">
+          <%= image_tag("logo.png", :alt => "logo") %>
+        </div>
+
+        <p style=";font-size:15px;margin-bottom:10px;">Sign up to see photos and videos <br> from your friends</p>
+
+        <a class="facebook-login" href="#">
+          <i class="fab fa-facebook-square"></i> Update your profil
+        </a>
+
+        <span class="has-separator">O</span>
+
+        <%=form.text_field :pseudo, placeholder:"Pseudo", style: "margin-bottom:10px;"%>
+
+        <%=form.email_field :email, placeholder:"Enter Email", style: "margin-bottom:10px;"%>
+
+        <%=form.password_field :password, placeholder:"password", style: "margin-bottom:10px;"%>
+
+        <%= form.password_field :password_confirmation, placeholder:"Password confirm", style: "margin-bottom:10px;"%>
+
+        <%= form.file_field :image%>
+
+        <%= form.hidden_field :image_cache %>
+
+        <%=form.submit "Update", disable_with: 'Submiting...', class:"form-btn"%>
+
+      <% end %>
+
+      <div class="sign-up">
+        Don't want to edit? <%= link_to 'Back', user_path %>
+      </div>
+    </div>
+  </div>
+</div>
